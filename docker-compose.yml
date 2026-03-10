@@ -1,0 +1,54 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - LLM_PROVIDER=${LLM_PROVIDER:-mock}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - VECTOR_DB_TYPE=${VECTOR_DB_TYPE:-chroma}
+      - CHROMA_PERSIST_DIR=/data/chroma
+      - COLLECTION_NAME=${COLLECTION_NAME:-email_knowledge_base}
+      - EMBEDDING_MODEL=${EMBEDDING_MODEL:-all-MiniLM-L6-v2}
+      - TOP_K_RESULTS=${TOP_K_RESULTS:-5}
+      - TEMPERATURE=${TEMPERATURE:-0.7}
+      - MAX_TOKENS=${MAX_TOKENS:-500}
+      - DEFAULT_TONE=${DEFAULT_TONE:-formal}
+    volumes:
+      - vector_data:/data/chroma
+    depends_on:
+      - chromadb
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["streamlit", "run", "frontend/streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://backend:8000
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  chromadb:
+    image: chromadb/chroma:latest
+    ports:
+      - "8010:8000"
+    volumes:
+      - vector_data:/chroma/chroma
+    restart: unless-stopped
+
+volumes:
+  vector_data:

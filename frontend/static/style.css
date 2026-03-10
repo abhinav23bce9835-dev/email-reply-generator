@@ -1,0 +1,110 @@
+/* RAG Email Reply Generator - Custom Streamlit Styles */
+
+/* Main container */
+.main .block-container {
+    max-width: 1200px;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* Title styling */
+h1 {
+    color: #1e3a5f;
+    font-weight: 700;
+    border-bottom: 3px solid #4a90d9;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+h2, h3 {
+    color: #2c5282;
+    font-weight: 600;
+}
+
+/* Card-style sections */
+.stExpander {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1rem;
+    background-color: #f8fafc;
+}
+
+/* Metric cards */
+[data-testid="metric-container"] {
+    background-color: #f0f7ff;
+    border: 1px solid #bee3f8;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+}
+
+/* Primary button */
+.stButton > button[kind="primary"] {
+    background-color: #2b6cb0;
+    border-color: #2b6cb0;
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.stButton > button[kind="primary"]:hover {
+    background-color: #2c5282;
+    transform: translateY(-1px);
+}
+
+/* Text areas */
+.stTextArea textarea {
+    border-radius: 8px;
+    border-color: #cbd5e0;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.stTextArea textarea:focus {
+    border-color: #4a90d9;
+    box-shadow: 0 0 0 2px rgba(74, 144, 217, 0.2);
+}
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background-color: #f7fafc;
+    border-right: 1px solid #e2e8f0;
+}
+
+[data-testid="stSidebar"] .stSelectbox label,
+[data-testid="stSidebar"] .stSlider label,
+[data-testid="stSidebar"] .stTextInput label {
+    font-weight: 600;
+    color: #2d3748;
+}
+
+/* Success/Error alerts */
+.stAlert {
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+/* Divider */
+hr {
+    border-color: #e2e8f0;
+}
+
+/* JSON display */
+.stJson {
+    background-color: #1a202c;
+    border-radius: 6px;
+    padding: 0.5rem;
+}
+
+/* Responsive columns */
+@media (max-width: 768px) {
+    .main .block-container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
