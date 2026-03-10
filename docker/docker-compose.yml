@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma_data:/app/chroma_data
+    environment:
+      - LLM_PROVIDER=mock
+      - VECTOR_DB_TYPE=chroma
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8501:8501"
+    command: streamlit run frontend/app.py --server.port 8501 --server.address 0.0.0.0
+    depends_on:
+      - backend
+    environment:
+      - BACKEND_URL=http://backend:8000
+
+volumes:
+  chroma_data:
